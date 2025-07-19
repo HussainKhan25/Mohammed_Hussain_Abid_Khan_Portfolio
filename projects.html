@@ -34,32 +34,122 @@
         }
 
         /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.03;
-        }
+     .bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background: var(--black);
+}
 
-        .bg-animation::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 80%, var(--lime-primary) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, var(--lime-secondary) 0%, transparent 50%);
-            animation: pulseGlow 8s ease-in-out infinite alternate;
-        }
+/* The small glowing circles */
+.bg-animation .circle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--lime-primary);
+    box-shadow: 0 0 15px 6px var(--lime-primary);
+    opacity: 0.1;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
 
-        @keyframes pulseGlow {
-            0% { opacity: 0.03; }
-            100% { opacity: 0.08; }
-        }
+/* Different sizes for variety */
+.bg-animation .c1 {
+    width: 60px;
+    height: 60px;
+    top: 10%;
+    left: 15%;
+    animation-name: float1;
+    animation-duration: 12s;
+}
+
+.bg-animation .c2 {
+    width: 40px;
+    height: 40px;
+    top: 70%;
+    left: 80%;
+    background: var(--lime-secondary);
+    box-shadow: 0 0 12px 5px var(--lime-secondary);
+    animation-name: float2;
+    animation-duration: 15s;
+}
+
+.bg-animation .c3 {
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    left: 50%;
+    background: var(--lime-accent);
+    box-shadow: 0 0 10px 4px var(--lime-accent);
+    animation-name: float3;
+    animation-duration: 10s;
+}
+
+.bg-animation .c4 {
+    width: 80px;
+    height: 80px;
+    top: 80%;
+    left: 10%;
+    background: var(--lime-dark);
+    box-shadow: 0 0 18px 7px var(--lime-dark);
+    animation-name: float4;
+    animation-duration: 20s;
+}
+
+.bg-animation .c5 {
+    width: 50px;
+    height: 50px;
+    top: 30%;
+    left: 75%;
+    background: var(--lime-primary);
+    box-shadow: 0 0 15px 6px var(--lime-primary);
+    animation-name: float5;
+    animation-duration: 14s;
+}
+
+.bg-animation .c6 {
+    width: 35px;
+    height: 35px;
+    top: 20%;
+    left: 40%;
+    background: var(--lime-secondary);
+    box-shadow: 0 0 12px 5px var(--lime-secondary);
+    animation-name: float6;
+    animation-duration: 16s;
+}
+
+/* Animations for floating effect */
+@keyframes float1 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 20px); }
+}
+@keyframes float2 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-20px, 30px); }
+}
+@keyframes float3 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(25px, -15px); }
+}
+@keyframes float4 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-35px, 20px); }
+}
+@keyframes float5 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(15px, -30px); }
+}
+@keyframes float6 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-25px, -20px); }
+}
+
+
 
         /* Navigation */
         nav {
@@ -529,7 +619,15 @@
 </head>
 <body>
     <!-- Background Animation -->
-    <div class="bg-animation"></div>
+    <div class="bg-animation">
+  <span class="circle c1"></span>
+  <span class="circle c2"></span>
+  <span class="circle c3"></span>
+  <span class="circle c4"></span>
+  <span class="circle c5"></span>
+  <span class="circle c6"></span>
+</div>
+
 
     <!-- Navigation -->
     <nav>
@@ -560,32 +658,33 @@
         <!-- Projects Grid -->
         <div class="projects-grid" id="projects">
             <!-- Project 1: AceYourDeen -->
-            <div class="project-card" data-year="2025">
-                <div class="year-badge">2025</div>
-                <div class="project-header">
-                    <div class="project-icon">
-                        <i class="fas fa-moon"></i>
-                    </div>
-                    <div>
-                        <h3 class="project-title">AceYourDeen: Life & Hereafter</h3>
-                        <p class="project-subtitle">FAITH • GROW • GLOW</p>
-                    </div>
-                </div>
-                <p class="project-description">
-                    A comprehensive Islamic platform that nurtures spiritual growth through daily reflections, 
-                    Qur'anic verses, interactive polls, and faith-based guidance. Designed to help users 
-                    strengthen their connection with Allah while navigating modern life challenges.
-                </p>
-                <div class="tech-stack">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                    <span class="tech-tag">JavaScript</span>
-                    <span class="tech-tag">Responsive Design</span>
-                </div>
-                <div class="project-cta">
-                    <a href="#" class="btn" onclick="alert('Live demo coming soon!')">Explore Platform</a>
-                </div>
-            </div>
+<div class="project-card" data-year="2025">
+    <div class="year-badge">2025</div>
+    <div class="project-header">
+        <div class="project-icon">
+            <i class="fas fa-quran"></i>
+        </div>
+        <div>
+            <h3 class="project-title">AceYourDeen: Life & Hereafter</h3>
+            <p class="project-subtitle">FAITH . GROW . GLOW</p>
+        </div>
+    </div>
+    <p class="project-description">
+        A platform offering simplified Islamic content including Qur'anic reflections, 
+        Duas, and faith reminders tailored for youth and students. Built to inspire and 
+        uplift through knowledge, purpose, and visual design.
+    </p>
+    <div class="tech-stack">
+        <span class="tech-tag">HTML</span>
+        <span class="tech-tag">CSS</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">FaithTech</span>
+    </div>
+    <div class="project-cta">
+        <a href="https://aceyourdeen.vercel.app" class="btn" target="_blank">Explore Website</a>
+    </div>
+</div>
+
 
             <!-- Project 2: Engg BookPDF App -->
             <div class="project-card" data-year="2023">
@@ -611,7 +710,7 @@
                     <span class="tech-tag">Mobile Design</span>
                 </div>
                 <div class="project-cta">
-                    <a href="#" class="btn" onclick="alert('Design portfolio coming soon!')">View Design</a>
+                    <a href="https://www.figma.com/design/uh2Pfu0LKbDTpbf9hiWKTL/Major-Project?m=auto&t=qLk7yoKlmXIGCEXa-6" class="btn")">View Design</a>
                 </div>
             </div>
 
@@ -639,7 +738,7 @@
                     <span class="tech-tag">Islamic Design</span>
                 </div>
                 <div class="project-cta">
-                    <a href="#" class="btn" onclick="alert('Design showcase coming soon!')">View Design</a>
+                    <a href="https://www.figma.com/design/QXyz0wBtHuVsxoakap9tnJ/DeenNur?m=auto&t=qLk7yoKlmXIGCEXa-1" class="btn">View Design</a>
                 </div>
             </div>
 
@@ -670,35 +769,64 @@
             </div>
 
             <!-- Project 5: SignalWatch -->
-            <div class="project-card" data-year="2025">
-                <div class="year-badge">2025</div>
-                <div class="project-header">
-                    <div class="project-icon">
-                        <i class="fas fa-wifi"></i>
-                    </div>
-                    <div>
-                        <h3 class="project-title">SignalWatch</h3>
-                        <p class="project-subtitle">Supervised Learning WiFi Classifier</p>
-                    </div>
-                </div>
-                <p class="project-description">
-                    A sophisticated WiFi signal classification system using supervised learning techniques 
-                    to analyze and categorize network signals. Provides insights into signal strength, 
-                    network quality, and optimal connection recommendations for enhanced connectivity.
-                </p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">TensorFlow</span>
-                    <span class="tech-tag">Scikit-learn</span>
-                    <span class="tech-tag">Pandas</span>
-                    <span class="tech-tag">Signal Processing</span>
-                </div>
-                <div class="project-cta">
-                    <a href="#" class="btn" onclick="alert('Project in development!')">Coming Soon</a>
-            
-                </div>
-            </div>
+<div class="project-card" data-year="2025">
+    <div class="year-badge">2025</div>
+    <div class="project-header">
+        <div class="project-icon">
+            <i class="fas fa-wifi"></i>
         </div>
+        <div>
+            <h3 class="project-title">SignalWatch</h3>
+            <p class="project-subtitle">Supervised Learning WiFi Classifier</p>
+        </div>
+    </div>
+    <p class="project-description">
+        A sophisticated WiFi signal classification system using supervised learning techniques 
+        to analyze and categorize network signals. Provides insights into signal strength, 
+        network quality, and optimal connection recommendations for enhanced connectivity.
+    </p>
+    <div class="tech-stack">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">TensorFlow</span>
+        <span class="tech-tag">Scikit-learn</span>
+        <span class="tech-tag">Pandas</span>
+        <span class="tech-tag">Signal Processing</span>
+    </div>
+    <div class="project-cta">
+        <a href="#" class="btn" onclick="alert('Project in development!')">Coming Soon</a>
+    </div>
+</div>
+
+<!-- Project 6: The Artists' Club Website -->
+<div class="project-card" data-year="2025">
+    <div class="year-badge">2025</div>
+    <div class="project-header">
+        <div class="project-icon">
+            <i class="fas fa-palette"></i>
+        </div>
+        <div>
+            <h3 class="project-title">The Artists' Club Website</h3>
+            <p class="project-subtitle">NSAKCET</p>
+        </div>
+    </div>
+    <p class="project-description">
+        A vibrant, responsive website to explore what the Artists' Club is all about — including our mission, vision, 
+        and various artistic mediums like sketching, painting, and digital art. Users can browse and purchase artworks 
+        and even join the club through an integrated sign-up form.
+    </p>
+    <div class="tech-stack">
+        <span class="tech-tag">HTML</span>
+        <span class="tech-tag">CSS</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Responsive Design</span>
+    </div>
+    <div class="project-cta">
+        <a href="https://the-arists-club.vercel.app/" class="btn" target="_blank">Explore Website</a>
+    </div>
+</div>
+
+</div>
+
     </div>
 
     <!-- Footer -->
