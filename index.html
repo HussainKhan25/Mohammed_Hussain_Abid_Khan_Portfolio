@@ -30,6 +30,74 @@
             overflow-x: hidden;
         }
 
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--lime-primary);
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(198, 255, 0, 0.5);
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            color: var(--text-grey);
+            margin-bottom: 30px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(198, 255, 0, 0.1);
+            border-top: 3px solid var(--lime-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Animated Background */
         .bg-animation {
             position: fixed;
@@ -68,6 +136,48 @@
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(10px);
             border-radius: 0 0 0 20px;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(198, 255, 0, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            width: 25px;
+            height: 20px;
+            justify-content: space-between;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--lime-primary);
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
         nav ul {
@@ -623,17 +733,6 @@
         }
 
         /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         @keyframes typeWriter {
             from {
                 width: 0;
@@ -654,15 +753,57 @@
             }
         }
 
-        /* Responsive Design */
+        /* Mobile Responsive Design */
         @media (max-width: 768px) {
-            nav {
-                padding: 15px 20px;
+            .loading-logo {
+                font-size: 2.5rem;
             }
 
-            nav ul {
-                gap: 20px;
-                flex-wrap: wrap;
+            .loading-text {
+                font-size: 1.2rem;
+                padding: 0 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            nav.mobile-nav {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(10px);
+                border-radius: 0;
+                padding: 80px 20px 20px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            nav.mobile-nav.active {
+                transform: translateX(0);
+            }
+
+            nav.mobile-nav ul {
+                flex-direction: column;
+                gap: 0;
+                height: 100%;
+                justify-content: flex-start;
+                padding-top: 40px;
+            }
+
+            nav.mobile-nav a {
+                font-size: 1.3rem;
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(198, 255, 0, 0.1);
+                display: block;
             }
 
             .dropdown {
@@ -673,56 +814,170 @@
                 background: transparent;
                 border: none;
                 box-shadow: none;
-                display: none;
+                margin-left: 20px;
+                margin-top: 10px;
             }
 
-            .nav-item:hover .dropdown {
-                display: block;
+            .dropdown a {
+                font-size: 1.1rem !important;
+                padding: 15px 0 !important;
+                border-bottom: 1px solid rgba(198, 255, 0, 0.05) !important;
+                color: var(--text-grey) !important;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
             .hero .subtitle {
                 font-size: 1rem;
             }
 
+            .hero-content {
+                padding-top: 40px;
+            }
+
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 15px;
             }
 
-            .timeline::before {
-                left: 30px;
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
             }
 
-            .timeline-item:nth-child(odd) .timeline-content,
-            .timeline-item:nth-child(even) .timeline-content {
-                left: 60px;
-                right: 0;
+            .skills {
+                padding: 60px 20px;
+            }
+
+            .skills h2 {
+                font-size: 2rem;
+                margin-bottom: 40px;
             }
 
             .skills-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .skill-item {
+                padding: 25px 20px;
+            }
+
+            .experience {
+                padding: 60px 20px;
+            }
+
+            .experience h2 {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+
+            .timeline::before {
+                left: 20px;
+                transform: none;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                left: 50px;
+                right: 0;
+            }
+
+            .timeline-content {
+                padding: 20px;
+            }
+
+            .timeline-title {
+                font-size: 1.1rem;
+            }
+
+            .testimonials {
+                padding: 60px 20px;
+            }
+
+            .testimonials h2 {
+                font-size: 2rem;
+                margin-bottom: 40px;
             }
 
             .testimonials-grid {
                 grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .testimonial-item {
+                padding: 25px;
+            }
+
+            .testimonial-text {
+                font-size: 0.95rem;
+            }
+
+            .thankyou {
+                padding: 60px 20px;
+            }
+
+            .thankyou h2 {
+                font-size: 2rem;
+            }
+
+            .thankyou-content {
+                padding: 30px 25px;
+            }
+
+            .thankyou-content p {
+                font-size: 1rem;
             }
 
             .footer-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 30px;
+            }
+
+            .footer-section p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .skills h2,
+            .experience h2,
+            .testimonials h2,
+            .thankyou h2 {
+                font-size: 1.8rem;
+            }
+
+            .timeline-content {
+                padding: 15px;
+            }
+
+            .testimonial-item {
+                padding: 20px;
             }
 
             .thankyou-content {
-                padding: 30px;
+                padding: 25px 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">MHA</div>
+        <div class="loading-text">Welcome to My Portfolio</div>
+        <div class="loading-spinner"></div>
+    </div>
+
     <!-- Background Animation -->
     <div class="bg-animation"></div>
 
@@ -731,8 +986,17 @@
         <div class="scroll-progress" id="scrollProgress"></div>
     </div>
 
+    <!-- Mobile Navigation Toggle -->
+    <div class="mobile-nav-toggle" id="mobileNavToggle">
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav>
+    <nav id="nav">
         <ul>
             <li class="nav-item">
                 <a href="#home">Home</a>
@@ -749,29 +1013,27 @@
         </ul>
     </nav>
 
-   <!-- Hero Section -->
-<section class="hero" id="home" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; padding: 20px;">
-  <div class="hero-content">
-    <h1>Mohammed Hussain Abid Khan</h1>
-    <p class="subtitle">
-  <span class="highlight">UI/UX Designer</span> — UI that speaks. UX that understands. Designs that perform.
-</p>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Mohammed Hussain Abid Khan</h1>
+            <p class="subtitle">
+                <span class="highlight">UI/UX Designer</span> — UI that speaks. UX that understands. Designs that perform.
+            </p>
 
-
-
-    <div class="cta-buttons" style="margin: 20px 0;">
-      <a href="projects.html" class="btn">View Projects</a>
-      <a href="https://www.linkedin.com/in/mohammed-hussain-abid-khan-47a480252?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BUPqbO1t6TmKbcvBpLZEUjw%3D%3D" class="btn" target="_blank" rel="noopener noreferrer">Let's Connect</a>
-    </div>
-    <!-- Image below the buttons -->
-    <div>
-      <img src="https://ik.imagekit.io/hackenvision/Portfolio/Mobile%20UI%20Profile.png?updatedAt=1752839747931" 
-           alt="Icon" 
-           style="height: 500px; width: auto; border-radius: 5px;" />
-    </div>
-  </div>
-</section>
-
+            <div class="cta-buttons">
+                <a href="projects.html" class="btn">View Projects</a>
+                <a href="https://www.linkedin.com/in/mohammed-hussain-abid-khan-47a480252?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BUPqbO1t6TmKbcvBpLZEUjw%3D%3D" class="btn" target="_blank" rel="noopener noreferrer">Let's Connect</a>
+            </div>
+            
+            <!-- Image below the buttons -->
+            <div style="margin-top: 20px;">
+                <img src="https://ik.imagekit.io/hackenvision/Portfolio/Mobile%20UI%20Profile.png?updatedAt=1752839747931" 
+                     alt="Mohammed Hussain Abid Khan" 
+                     style="height: 500px; width: auto; border-radius: 5px;" />
+            </div>
+        </div>
+    </section>
 
     <!-- Skills Section -->
     <section class="skills" id="skills">
@@ -837,61 +1099,61 @@
     </section>
 
     <!-- Experience Section -->
-<section class="experience" id="experience">
-    <h2>Where I've Worked</h2>
-    <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <div class="timeline-date">Dec 2024 - May 2025</div>
-                <div class="timeline-title">UI/UX Designer Intern</div>
-                <div class="timeline-company">XAIOS Solutions</div>
-                <div class="timeline-description">
-                    Designing intuitive user interfaces and enhancing user experiences for web and mobile applications, collaborating with cross-functional teams to deliver exceptional digital products.
+    <section class="experience" id="experience">
+        <h2>Where I've Worked</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Dec 2024 - May 2025</div>
+                    <div class="timeline-title">UI/UX Designer Intern</div>
+                    <div class="timeline-company">XAIOS Solutions</div>
+                    <div class="timeline-description">
+                        Designing intuitive user interfaces and enhancing user experiences for web and mobile applications, collaborating with cross-functional teams to deliver exceptional digital products.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Jul 2024 - Dec 2024</div>
+                    <div class="timeline-title">Design Volunteer</div>
+                    <div class="timeline-company">Professional Solidarity Forum</div>
+                    <div class="timeline-description">
+                        Volunteered in design projects, supporting community initiatives and professional solidarity campaigns through creative visual solutions.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2022 - Present</div>
+                    <div class="timeline-title">Founder</div>
+                    <div class="timeline-company">AceYourStudies:OU[B.E] & AceYourDeen: Life & Hereafter</div>
+                    <div class="timeline-description">
+                        Leading an educational platform dedicated to empowering students with comprehensive learning resources, mentorship, and faith-based guidance — including polls, Qur'anic verses, and reflections — to nurture success in both this life and the hereafter.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Jan 2025 - June 2025</div>
+                    <div class="timeline-title">Founder & Former-President</div>
+                    <div class="timeline-company">The Artists' Club NSAKCET</div>
+                    <div class="timeline-description">
+                        Founded and led a creative community of artists, organizing events, workshops, and exhibitions to promote artistic expression and cultural activities within the college.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Dec 2022 – Feb 2024</div>
+                    <div class="timeline-title">IEEE SB Secretary</div>
+                    <div class="timeline-company">IEEE Student Branch NSAKCET</div>
+                    <div class="timeline-description">
+                        Spearheaded student engagement, organized technical events, and facilitated coordination between IEEE members and college leadership to enhance the branch's visibility and impact.
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <div class="timeline-date">Jul 2024 - Dec 2024</div>
-                <div class="timeline-title">Design Volunteer</div>
-                <div class="timeline-company">Professional Solidarity Forum</div>
-                <div class="timeline-description">
-                    Volunteered in design projects, supporting community initiatives and professional solidarity campaigns through creative visual solutions.
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <div class="timeline-date">2022 - Present</div>
-                <div class="timeline-title">Founder</div>
-                <div class="timeline-company">AceYourStudies:OU[B.E] & AceYourDeen: Life & Hereafter</div>
-                <div class="timeline-description">
-                    Leading an educational platform dedicated to empowering students with comprehensive learning resources, mentorship, and faith-based guidance — including polls, Qur'anic verses, and reflections — to nurture success in both this life and the hereafter.
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <div class="timeline-date">Jan 2025 - June 2025</div>
-                <div class="timeline-title">Founder & Former-President</div>
-                <div class="timeline-company">The Artists' Club NSAKCET</div>
-                <div class="timeline-description">
-                    Founded and led a creative community of artists, organizing events, workshops, and exhibitions to promote artistic expression and cultural activities within the college.
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <div class="timeline-date">Dec 2022 – Feb 2024</div>
-                <div class="timeline-title">IEEE SB Secretary</div>
-                <div class="timeline-company">IEEE Student Branch NSAKCET</div>
-                <div class="timeline-description">
-                    Spearheaded student engagement, organized technical events, and facilitated coordination between IEEE members and college leadership to enhance the branch's visibility and impact.
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Testimonials Section -->
     <section class="testimonials" id="testimonials">
@@ -899,7 +1161,7 @@
         <div class="testimonials-grid">
             <div class="testimonial-item">
                 <p class="testimonial-text">
-                    Mentoring Mohammed Hussain Abid Khan during his tenure as IEEE SB Secretary at NSAKCET in 2024 was a rewarding experience. He consistently demonstrated creativity, leadership, and a proactive spirit. His ability to turn ideas into action, lead teams with enthusiasm, and contribute meaningfully through content and event management stood out. Mohammed’s dedication, problem-solving mindset, and collaborative nature make him a true asset to any organization.
+                    Mentoring Mohammed Hussain Abid Khan during his tenure as IEEE SB Secretary at NSAKCET in 2024 was a rewarding experience. He consistently demonstrated creativity, leadership, and a proactive spirit. His ability to turn ideas into action, lead teams with enthusiasm, and contribute meaningfully through content and event management stood out. Mohammed's dedication, problem-solving mindset, and collaborative nature make him a true asset to any organization.
                 </p>
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">SQ</div>
@@ -911,7 +1173,7 @@
             </div>
             <div class="testimonial-item">
                 <p class="testimonial-text">
-                    It has been a pleasure to witness Mr. Md Hussain Abid Khan’s journey as a dynamic and committed student at NSAKCET. As President of the Artists' Club, he led vibrant campus events that celebrated creativity and inclusion. His leadership in the Smart India Hackathon as a Student Mentor further highlighted his ability to guide, motivate, and inspire innovation among peers. With a balanced personality, strong organizational skills, and a passion for both academics and extracurriculars, Hussain stands out as a well-rounded and impactful individual. I have no doubt he will continue to excel in all his future endeavors.
+                    It has been a pleasure to witness Mr. Md Hussain Abid Khan's journey as a dynamic and committed student at NSAKCET. As President of the Artists' Club, he led vibrant campus events that celebrated creativity and inclusion. His leadership in the Smart India Hackathon as a Student Mentor further highlighted his ability to guide, motivate, and inspire innovation among peers. With a balanced personality, strong organizational skills, and a passion for both academics and extracurriculars, Hussain stands out as a well-rounded and impactful individual. I have no doubt he will continue to excel in all his future endeavors.
                 </p>
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">UR</div>
@@ -925,29 +1187,28 @@
     </section>
 
     <section class="thankyou" id="thankyou">
-    <h2>Thank You</h2>
-    <div class="thankyou-content">
-        <div class="thankyou-icon">
-            <i class="fas fa-heart"></i>
+        <h2>Thank You</h2>
+        <div class="thankyou-content">
+            <div class="thankyou-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <p>
+                Thank you for taking the time to explore my portfolio. Every project, every line of code, 
+                and every design decision represents my commitment to creating meaningful digital experiences.
+            </p>
+            <p>
+                Whether you're here as a potential collaborator, employer, or fellow creative, I'm grateful 
+                for your interest in my work. Let's connect and create something amazing together!
+            </p>
+            <p style="margin-top: 40px; font-style: italic; color: var(--lime-primary);">
+                Special thanks to my beloved mom for everything. May Allah (SWT) bless her with the highest level of Jannah. Ameen.
+            </p>
+            <div style="margin-top: 30px; font-size: 1.2rem; color: var(--lime-primary); display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <i class="fas fa-envelope"></i>
+                <span>mdhussainabidkhan018@gmail.com</span>
+            </div>
         </div>
-        <p>
-            Thank you for taking the time to explore my portfolio. Every project, every line of code, 
-            and every design decision represents my commitment to creating meaningful digital experiences.
-        </p>
-        <p>
-            Whether you're here as a potential collaborator, employer, or fellow creative, I'm grateful 
-            for your interest in my work. Let's connect and create something amazing together!
-        </p>
-        <p style="margin-top: 40px; font-style: italic; color: var(--lime-primary);">
-            Special thanks to my beloved mom for everything. May Allah (SWT) bless her with the highest level of Jannah. Ameen.
-        </p>
-        <div style="margin-top: 30px; font-size: 1.2rem; color: var(--lime-primary); display: flex; align-items: center; justify-content: center; gap: 10px;">
-            <i class="fas fa-envelope"></i>
-            <span>mdhussainabidkhan018@gmail.com</span>
-        </div>
-    </div>
-</section>
-
+    </section>
 
     <!-- Footer -->
     <footer class="footer" id="contact">
@@ -955,7 +1216,7 @@
             <div class="footer-section">
                 <h3>Get In Touch</h3>
                 <p>Ready to bring your ideas to life? Let's collaborate on your next project.</p>
-                <p><i class="fasfa-envelope"></i> mdhussainabidkhan018@gmail.com</p>
+                <p><i class="fas fa-envelope"></i> mdhussainabidkhan018@gmail.com</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
@@ -980,6 +1241,34 @@
     </footer>
 
     <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 2500);
+        });
+
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.getElementById('mobileNavToggle');
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        mobileNavToggle.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+            nav.classList.toggle('mobile-nav');
+        });
+
+        // Close mobile nav when clicking on a link
+        const navLinks = nav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+                nav.classList.remove('mobile-nav');
+            });
+        });
+
         // Scroll Progress Bar
         window.onscroll = function () {
             const scrollProgress = document.getElementById("scrollProgress");
@@ -990,11 +1279,13 @@
 
         // Animate skill bars
         window.addEventListener("load", () => {
-            const bars = document.querySelectorAll(".skill-progress-bar");
-            bars.forEach(bar => {
-                const width = bar.getAttribute("data-width");
-                bar.style.width = width + "%";
-            });
+            setTimeout(() => {
+                const bars = document.querySelectorAll(".skill-progress-bar");
+                bars.forEach(bar => {
+                    const width = bar.getAttribute("data-width");
+                    bar.style.width = width + "%";
+                });
+            }, 3000);
         });
 
         // Animate timeline items on scroll
@@ -1008,6 +1299,21 @@
 
         document.querySelectorAll('.timeline-item').forEach(item => {
             observer.observe(item);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 20;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>
